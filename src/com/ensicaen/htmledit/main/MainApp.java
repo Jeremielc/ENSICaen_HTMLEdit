@@ -1,5 +1,6 @@
 package com.ensicaen.htmledit.main;
 
+import com.ensicaen.htmledit.fxml.RootLayoutController;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -25,6 +26,9 @@ public class MainApp extends Application {
             primaryStage.setTitle("HTMLEdit v1.0");
             primaryStage.setScene(scene);
             primaryStage.show();
+            
+            RootLayoutController rlc = loader.getController();
+            rlc.setPrimaryStage(primaryStage);
         } catch (IOException ex) {
             ex.printStackTrace(System.err);
             System.err.println("Unable to load fxml file.");
