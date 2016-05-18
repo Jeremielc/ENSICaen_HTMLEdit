@@ -8,8 +8,11 @@ import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.text.Text;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
@@ -22,22 +25,15 @@ import javafx.stage.Stage;
  */
 public class RootLayoutController implements Initializable {
 
-    @FXML
-    private MenuItem newFile, openFile, saveFile, saveFileAs, closeFile, quit;
-    @FXML
-    private MenuItem cut, copy, paste;
-    @FXML
-    private MenuItem about;
+    @FXML private MenuItem newFile, openFile, saveFile, saveFileAs, closeFile, quit;
+    @FXML private MenuItem cut, copy, paste;
+    @FXML private MenuItem about;
 
-    @FXML
-    private TextArea htmlEditor;
-    @FXML
-    private WebView webView;
-    @FXML
-    private WebEngine webEngine;
+    @FXML private TextArea htmlEditor;
+    @FXML private WebView webView;
+    @FXML private WebEngine webEngine;
 
-    @FXML
-    private Text infos, characters, lines;
+    @FXML private Text infos, characters, lines;
 
     private Stage primaryStage;
     private boolean fileHasName = false;
@@ -45,11 +41,12 @@ public class RootLayoutController implements Initializable {
     private String filename;
 
     public RootLayoutController() {
-
+        
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        infos.setText("IDLE");
         characters.setText("0");
         lines.setText("0");
     }
@@ -165,9 +162,14 @@ public class RootLayoutController implements Initializable {
 
     }
 
-    @FXML
+    @FXML //Done
     public void handleAbout() {
-
+        Alert info = new Alert(Alert.AlertType.INFORMATION);
+        info.setTitle("About");
+        info.setContentText("HTML Editor with live preview. \n"
+                + "Written by Pierrick HUE and Jérémie LECLERC.");
+        
+        info.show();
     }
 
     public void setPrimaryStage(Stage primaryStage) {

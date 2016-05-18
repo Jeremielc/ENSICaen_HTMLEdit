@@ -29,6 +29,7 @@ public class MainApp extends Application {
             
             RootLayoutController rlc = loader.getController();
             rlc.setPrimaryStage(primaryStage);
+            //rlc.initAccelerators();
         } catch (IOException ex) {
             ex.printStackTrace(System.err);
             System.err.println("Unable to load fxml file.");

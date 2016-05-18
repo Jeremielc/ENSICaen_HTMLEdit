@@ -27,19 +27,19 @@
             <menus>
                 <Menu mnemonicParsing="false" text="File">
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#handleNewFile" text="New File" />
-                        <MenuItem mnemonicParsing="false" onAction="#handleOpenFile" text="Open File" />
-                        <MenuItem mnemonicParsing="false" onAction="#handleSaveFile" text="Save File" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleNewFile" text="New File" accelerator="Shortcut+N" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleOpenFile" text="Open File" accelerator="Shortcut+O" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleSaveFile" text="Save File" accelerator="Shortcut+S" />
                         <MenuItem mnemonicParsing="false" onAction="#handleSaveFileAs" text="Save File As" />
-                        <MenuItem mnemonicParsing="false" onAction="#handleCloseFile" text="Close File" />
-                        <MenuItem mnemonicParsing="false" onAction="#handleQuit" text="Quit" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleCloseFile" text="Close File" accelerator="Shortcut+E" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleQuit" text="Quit" accelerator="Shortcut+Q" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Edit">
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#handleCut" text="Cut" />
-                        <MenuItem mnemonicParsing="false" onAction="#handleCopy" text="Copy" />
-                        <MenuItem mnemonicParsing="false" onAction="#handlePaste" text="Paste" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleCut" text="Cut" accelerator="Shortcut+X"/>
+                        <MenuItem mnemonicParsing="false" onAction="#handleCopy" text="Copy" accelerator="Shortcut+C"/>
+                        <MenuItem mnemonicParsing="false" onAction="#handlePaste" text="Paste" accelerator="Shortcut+V"/>
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Help">
