@@ -4,12 +4,14 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.text.Text;
@@ -42,7 +44,8 @@ public class RootLayoutController implements Initializable {
     private Text infos, characters, lines;
 
     private Stage primaryStage;
-    private boolean fileHasName = false;
+    private boolean fileHasName = false, fileIsSaved = false;
+    private String lastContent;
     private File workingDir = null;
     private String filename;
 
@@ -57,7 +60,7 @@ public class RootLayoutController implements Initializable {
         lines.setText("0");
     }
 
-    @FXML
+    @FXML //Done
     public void updateGui() {
         webEngine = webView.getEngine();
         webEngine.loadContent(htmlEditor.getText());
@@ -74,7 +77,7 @@ public class RootLayoutController implements Initializable {
                 nbLine++;
             }
         }
-        
+
         lines.setText(String.valueOf(nbLine));
     }
 
@@ -83,7 +86,7 @@ public class RootLayoutController implements Initializable {
 
     }
 
-    @FXML
+    @FXML //Pending
     public void handleOpenFile() {
         FileChooser chooser = new FileChooser();
         chooser.setInitialDirectory(new File(System.getProperty("user.home")));
@@ -95,16 +98,19 @@ public class RootLayoutController implements Initializable {
     public void handleSaveFile() {
         if (fileHasName) {
             File file = new File(workingDir.getAbsolutePath() + File.separator + filename);
-            try (FileWriter fw = new FileWriter(file)) {
+            try (FileWriter fw = new FileWriter(file, false)) {
                 String text = htmlEditor.getText();
                 for (char c : text.toCharArray()) {
                     fw.write(c);
                 }
 
                 infos.setText("File successfully saved.");
+                fileIsSaved = true;
+                lastContent = htmlEditor.getText();
             } catch (IOException ex) {
                 ex.printStackTrace(System.err);
                 infos.setText("File cannot be saved.");
+                fileIsSaved = false;
             }
         } else {
             handleSaveFileAs();
@@ -126,16 +132,19 @@ public class RootLayoutController implements Initializable {
             fileHasName = true;
             workingDir = file.getParentFile();
 
-            try (FileWriter fw = new FileWriter(file)) {
+            try (FileWriter fw = new FileWriter(file, false)) {
                 String text = htmlEditor.getText();
                 for (char c : text.toCharArray()) {
                     fw.write(c);
                 }
 
                 infos.setText("File successfully saved.");
+                fileIsSaved = true;
+                lastContent = htmlEditor.getText();
             } catch (IOException ex) {
                 ex.printStackTrace(System.err);
                 infos.setText("File cannot be saved.");
+                fileIsSaved = false;
             }
 
             if (!file.getName().endsWith(".html")) {
@@ -148,12 +157,47 @@ public class RootLayoutController implements Initializable {
             fileHasName = false;
             workingDir = null;
             infos.setText("File cannot be saved.");
+            fileIsSaved = false;
         }
     }
 
-    @FXML
+    @FXML //Done
     public void handleCloseFile() {
+        if (fileIsSaved) {
+            if (lastContent.compareTo(htmlEditor.getText()) != 0) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.initOwner(primaryStage);
+                alert.setTitle("Are you sure ?");
+                alert.setContentText("It seems that your modifications are not saved.\n"
+                        + "Do you wish to continue without saving ?\n");
 
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK) {
+
+                } else {
+                    handleSaveFile();
+                }
+            }
+            
+            htmlEditor.clear();
+            updateGui();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.initOwner(primaryStage);
+            alert.setTitle("Are you sure ?");
+            alert.setContentText("It seems that your modifications are not saved.\n"
+                    + "Do you wish to continue without saving ?\n");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+
+            } else {
+                handleSaveFile();
+            }
+
+            htmlEditor.clear();
+            updateGui();
+        }
     }
 
     @FXML
