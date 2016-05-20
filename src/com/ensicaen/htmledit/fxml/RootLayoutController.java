@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.StringTokenizer;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -23,15 +24,22 @@ import javafx.stage.Stage;
  */
 public class RootLayoutController implements Initializable {
 
-    @FXML private MenuItem newFile, openFile, saveFile, saveFileAs, closeFile, quit;
-    @FXML private MenuItem cut, copy, paste;
-    @FXML private MenuItem about;
+    @FXML
+    private MenuItem newFile, openFile, saveFile, saveFileAs, closeFile, quit;
+    @FXML
+    private MenuItem cut, copy, paste;
+    @FXML
+    private MenuItem about;
 
-    @FXML private TextArea htmlEditor;
-    @FXML private WebView webView;
-    @FXML private WebEngine webEngine;
+    @FXML
+    private TextArea htmlEditor;
+    @FXML
+    private WebView webView;
+    @FXML
+    private WebEngine webEngine;
 
-    @FXML private Text infos, characters, lines;
+    @FXML
+    private Text infos, characters, lines;
 
     private Stage primaryStage;
     private boolean fileHasName = false;
@@ -39,7 +47,7 @@ public class RootLayoutController implements Initializable {
     private String filename;
 
     public RootLayoutController() {
-        
+
     }
 
     @Override
@@ -57,11 +65,16 @@ public class RootLayoutController implements Initializable {
         String text = htmlEditor.getText();
         characters.setText(String.valueOf(text.length()));
         int nbLine = 0;
+
+        if (text.contains("\n")) {
+            String temp;
+            StringTokenizer st = new StringTokenizer(text, "\n");
+            while (st.hasMoreTokens()) {
+                temp = st.nextToken();
+                nbLine++;
+            }
+        }
         
-        /*StringTokenizer st = new StringTokenizer(text, "\n");
-        while (st.hasMoreTokens()) {
-            nbLine++;
-        }*/
         lines.setText(String.valueOf(nbLine));
     }
 
@@ -74,7 +87,7 @@ public class RootLayoutController implements Initializable {
     public void handleOpenFile() {
         FileChooser chooser = new FileChooser();
         chooser.setInitialDirectory(new File(System.getProperty("user.home")));
-        
+
         File file = chooser.showOpenDialog(primaryStage);
     }
 
@@ -87,7 +100,7 @@ public class RootLayoutController implements Initializable {
                 for (char c : text.toCharArray()) {
                     fw.write(c);
                 }
-                
+
                 infos.setText("File successfully saved.");
             } catch (IOException ex) {
                 ex.printStackTrace(System.err);
@@ -124,7 +137,7 @@ public class RootLayoutController implements Initializable {
                 ex.printStackTrace(System.err);
                 infos.setText("File cannot be saved.");
             }
-            
+
             if (!file.getName().endsWith(".html")) {
                 file.renameTo(new File(file.getAbsolutePath() + ".html"));
                 filename = file.getName() + ".html";
@@ -166,10 +179,11 @@ public class RootLayoutController implements Initializable {
     @FXML //Done
     public void handleAbout() {
         Alert info = new Alert(Alert.AlertType.INFORMATION);
+        info.initOwner(primaryStage);
         info.setTitle("About");
         info.setContentText("HTML Editor with live preview. \n"
                 + "Written by Pierrick HUE and Jérémie LECLERC.");
-        
+
         info.show();
     }
 
