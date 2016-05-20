@@ -1,45 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.*?>
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.web.*?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.web.WebView?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="536.0" prefWidth="877.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensicaen.htmledit.fxml.RootLayoutController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="536.0" prefWidth="877.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensicaen.htmledit.fxml.RootLayoutController">
     <top>
         <MenuBar BorderPane.alignment="CENTER">
             <menus>
                 <Menu mnemonicParsing="false" text="File">
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#handleNewFile" text="New File" accelerator="Shortcut+N" />
-                        <MenuItem mnemonicParsing="false" onAction="#handleOpenFile" text="Open File" accelerator="Shortcut+O" />
-                        <MenuItem mnemonicParsing="false" onAction="#handleSaveFile" text="Save File" accelerator="Shortcut+S" />
+                        <MenuItem accelerator="Shortcut+N" mnemonicParsing="false" onAction="#handleNewFile" text="New File" />
+                        <MenuItem accelerator="Shortcut+O" mnemonicParsing="false" onAction="#handleOpenFile" text="Open File" />
+                        <MenuItem accelerator="Shortcut+S" mnemonicParsing="false" onAction="#handleSaveFile" text="Save File" />
                         <MenuItem mnemonicParsing="false" onAction="#handleSaveFileAs" text="Save File As" />
-                        <MenuItem mnemonicParsing="false" onAction="#handleCloseFile" text="Close File" accelerator="Shortcut+E" />
-                        <MenuItem mnemonicParsing="false" onAction="#handleQuit" text="Quit" accelerator="Shortcut+Q" />
+                        <MenuItem accelerator="Shortcut+E" mnemonicParsing="false" onAction="#handleCloseFile" text="Close File" />
+                        <MenuItem accelerator="Shortcut+Q" mnemonicParsing="false" onAction="#handleQuit" text="Quit" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Edit">
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#handleCut" text="Cut" accelerator="Shortcut+X"/>
-                        <MenuItem mnemonicParsing="false" onAction="#handleCopy" text="Copy" accelerator="Shortcut+C"/>
-                        <MenuItem mnemonicParsing="false" onAction="#handlePaste" text="Paste" accelerator="Shortcut+V"/>
+                        <MenuItem accelerator="Shortcut+X" mnemonicParsing="false" onAction="#handleCut" text="Cut" />
+                        <MenuItem accelerator="Shortcut+C" mnemonicParsing="false" onAction="#handleCopy" text="Copy" />
+                        <MenuItem accelerator="Shortcut+V" mnemonicParsing="false" onAction="#handlePaste" text="Paste" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Help">
@@ -54,9 +49,9 @@
         <AnchorPane prefHeight="20.0" prefWidth="975.0" BorderPane.alignment="CENTER">
             <children>
                 <Label text="Lines : " AnchorPane.bottomAnchor="3.0" AnchorPane.rightAnchor="80.0" />
-                <Text fx:id="characters" layoutX="797.5654296875" layoutY="13.0" strokeType="OUTSIDE" strokeWidth="0.0" text="lines" wrappingWidth="74.7294921875" AnchorPane.bottomAnchor="3.0" AnchorPane.rightAnchor="5.0" />
-                <Text fx:id="lines" layoutX="647.7294921875" layoutY="13.0" strokeType="OUTSIDE" strokeWidth="0.0" text="chars" wrappingWidth="106.7294921875" AnchorPane.bottomAnchor="3.0" AnchorPane.rightAnchor="122.541015625" />
+                <Text fx:id="lines" layoutX="797.5654296875" layoutY="13.0" strokeType="OUTSIDE" strokeWidth="0.0" text="lines" wrappingWidth="74.7294921875" AnchorPane.bottomAnchor="3.0" AnchorPane.rightAnchor="5.0" />
                 <Label text="Characters : " AnchorPane.bottomAnchor="3.0" AnchorPane.rightAnchor="230.0" />
+                <Text fx:id="characters" layoutX="647.7294921875" layoutY="13.0" strokeType="OUTSIDE" strokeWidth="0.0" text="chars" wrappingWidth="106.7294921875" AnchorPane.bottomAnchor="3.0" AnchorPane.rightAnchor="122.541015625" />
                 <Text fx:id="infos" layoutY="13.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Infos" wrappingWidth="572.13671875" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="3.0" AnchorPane.topAnchor="0.0" />
             </children>
         </AnchorPane>
@@ -70,28 +65,21 @@
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="443.0" prefWidth="828.0">
                                     <children>
-                                        <GridPane layoutX="138.0" layoutY="102.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                            <columnConstraints>
-                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                            </columnConstraints>
-                                            <rowConstraints>
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                            </rowConstraints>
-                                            <children>
-                                                <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                        <SplitPane dividerPositions="0.5" layoutX="339.0" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <items>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                                                     <children>
-                                                        <TextArea fx:id="htmlEditor" layoutX="-13.0" layoutY="34.0" onKeyReleased="#updateGui" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                        <TextArea fx:id="htmlEditor" layoutX="-69.0" layoutY="5.0" onKeyReleased="#updateGui" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                                     </children>
                                                 </AnchorPane>
-                                                <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                                                     <children>
-                                                        <WebView fx:id="webView" layoutX="49.0" layoutY="133.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0" />
-                                                        <Label layoutX="14.0" layoutY="6.0" text="Preview : " AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="5.0" />
+                                                        <WebView fx:id="webView" layoutX="-24.0" layoutY="5.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0" />
+                                                        <Label layoutX="11.0" layoutY="143.0" text="Preview : " AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="0.0" />
                                                     </children>
                                                 </AnchorPane>
-                                            </children>
-                                        </GridPane>
+                                            </items>
+                                        </SplitPane>
                                     </children>
                                 </AnchorPane>
                             </content>
@@ -116,7 +104,7 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button layoutX="65.0" layoutY="5.0" mnemonicParsing="false" onAction="#handleOpenFile" prefHeight="48.0" prefWidth="52.0" AnchorPane.leftAnchor="65.0">
+                <Button layoutX="65.0" layoutY="5.0" mnemonicParsing="false" onAction="#handleOpenFile" prefHeight="50.0" prefWidth="52.0" AnchorPane.leftAnchor="65.0">
                     <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -125,7 +113,7 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button layoutX="178.0" layoutY="5.0" mnemonicParsing="false" onAction="#handleCloseFile" prefHeight="48.0" prefWidth="52.0" AnchorPane.leftAnchor="180.0">
+                <Button layoutX="178.0" layoutY="5.0" mnemonicParsing="false" onAction="#handleCloseFile" prefHeight="50.0" prefWidth="52.0" AnchorPane.leftAnchor="180.0">
                     <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                             <image>

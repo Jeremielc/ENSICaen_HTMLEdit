@@ -5,6 +5,7 @@ import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -23,6 +24,7 @@ public class MainApp extends Application {
 
             Scene scene = new Scene(rootLayout);
 
+            primaryStage.getIcons().add(new Image("/com/ensicaen/htmledit/images/icon.png"));
             primaryStage.setTitle("HTMLEdit v1.0");
             primaryStage.setScene(scene);
             primaryStage.show();

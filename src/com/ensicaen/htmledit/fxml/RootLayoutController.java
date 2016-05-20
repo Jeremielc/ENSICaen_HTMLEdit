@@ -11,8 +11,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.text.Text;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
@@ -56,15 +54,15 @@ public class RootLayoutController implements Initializable {
         webEngine = webView.getEngine();
         webEngine.loadContent(htmlEditor.getText());
 
-        /*String text = htmlEditor.getText();
+        String text = htmlEditor.getText();
         characters.setText(String.valueOf(text.length()));
         int nbLine = 0;
         
-        StringTokenizer st = new StringTokenizer(text, "\n");
+        /*StringTokenizer st = new StringTokenizer(text, "\n");
         while (st.hasMoreTokens()) {
             nbLine++;
-        }
-        lines.setText(String.valueOf(nbLine));*/
+        }*/
+        lines.setText(String.valueOf(nbLine));
     }
 
     @FXML
@@ -74,7 +72,10 @@ public class RootLayoutController implements Initializable {
 
     @FXML
     public void handleOpenFile() {
-
+        FileChooser chooser = new FileChooser();
+        chooser.setInitialDirectory(new File(System.getProperty("user.home")));
+        
+        File file = chooser.showOpenDialog(primaryStage);
     }
 
     @FXML //Done
