@@ -1,6 +1,8 @@
 package com.ensicaen.htmledit.fxml;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
@@ -14,6 +16,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.Clipboard;
 import javafx.scene.text.Text;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
@@ -86,12 +89,42 @@ public class RootLayoutController implements Initializable {
 
     }
 
-    @FXML //Pending
+    @FXML
     public void handleOpenFile() {
         FileChooser chooser = new FileChooser();
-        chooser.setInitialDirectory(new File(System.getProperty("user.home")));
+        if (workingDir != null) {
+            chooser.setInitialDirectory(workingDir);
+        } else {
+            chooser.setInitialDirectory(new File(System.getProperty("user.home")));
+        }
 
         File file = chooser.showOpenDialog(primaryStage);
+        if (file != null) {
+            handleCloseFile();
+
+            try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+                htmlEditor.clear();
+                updateGui();
+
+                String readed = "";
+                do {
+                    readed = br.readLine();
+                    if (readed != null) {
+                        htmlEditor.appendText(readed + "\n");
+                    }
+                } while (readed != null);
+
+                infos.setText("File loaded successfully.");
+                fileIsSaved = true;
+            } catch (IOException ex) {
+                ex.printStackTrace(System.err);
+                infos.setText("Cannot load file.");
+            }
+        } else {
+            infos.setText("Cannot load file.");
+        }
+        
+        updateGui();
     }
 
     @FXML //Done
@@ -178,7 +211,7 @@ public class RootLayoutController implements Initializable {
                     handleSaveFile();
                 }
             }
-            
+
             htmlEditor.clear();
             updateGui();
         } else {
@@ -200,24 +233,24 @@ public class RootLayoutController implements Initializable {
         }
     }
 
-    @FXML
+    @FXML //Done
     public void handleQuit() {
         Platform.exit();
     }
 
-    @FXML
+    @FXML //Delayed
     public void handleCut() {
 
     }
 
-    @FXML
+    @FXML //Delayed
     public void handleCopy() {
 
     }
 
-    @FXML
+    @FXML //Delayed
     public void handlePaste() {
-
+        //Clipboard.getSystemClipboard().getString(); 
     }
 
     @FXML //Done
