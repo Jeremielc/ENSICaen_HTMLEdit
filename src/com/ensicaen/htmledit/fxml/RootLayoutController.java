@@ -123,7 +123,7 @@ public class RootLayoutController implements Initializable {
         } else {
             infos.setText("Cannot load file.");
         }
-        
+
         updateGui();
     }
 
@@ -197,18 +197,20 @@ public class RootLayoutController implements Initializable {
     @FXML //Done
     public void handleCloseFile() {
         if (fileIsSaved) {
-            if (lastContent.compareTo(htmlEditor.getText()) != 0) {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.initOwner(primaryStage);
-                alert.setTitle("Are you sure ?");
-                alert.setContentText("It seems that your modifications are not saved.\n"
-                        + "Do you wish to continue without saving ?\n");
+            if (lastContent != null) {
+                if (lastContent.compareTo(htmlEditor.getText()) != 0) {
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.initOwner(primaryStage);
+                    alert.setTitle("Are you sure ?");
+                    alert.setContentText("It seems that your modifications are not saved.\n"
+                            + "Do you wish to continue without saving ?\n");
 
-                Optional<ButtonType> result = alert.showAndWait();
-                if (result.get() == ButtonType.OK) {
+                    Optional<ButtonType> result = alert.showAndWait();
+                    if (result.get() == ButtonType.OK) {
 
-                } else {
-                    handleSaveFile();
+                    } else {
+                        handleSaveFile();
+                    }
                 }
             }
 
