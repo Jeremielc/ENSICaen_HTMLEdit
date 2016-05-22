@@ -16,7 +16,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
-import javafx.scene.input.Clipboard;
 import javafx.scene.text.Text;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
@@ -63,7 +62,7 @@ public class RootLayoutController implements Initializable {
         lines.setText("0");
     }
 
-    @FXML //Done
+    @FXML
     public void updateGui() {
         webEngine = webView.getEngine();
         webEngine.loadContent(htmlEditor.getText());
@@ -127,7 +126,7 @@ public class RootLayoutController implements Initializable {
         updateGui();
     }
 
-    @FXML //Done
+    @FXML
     public void handleSaveFile() {
         if (fileHasName) {
             File file = new File(workingDir.getAbsolutePath() + File.separator + filename);
@@ -150,7 +149,7 @@ public class RootLayoutController implements Initializable {
         }
     }
 
-    @FXML //Done
+    @FXML
     public void handleSaveFileAs() {
         FileChooser chooser = new FileChooser();
         if (workingDir != null) {
@@ -194,7 +193,7 @@ public class RootLayoutController implements Initializable {
         }
     }
 
-    @FXML //Done
+    @FXML
     public void handleCloseFile() {
         if (fileIsSaved) {
             if (lastContent != null) {
@@ -235,27 +234,27 @@ public class RootLayoutController implements Initializable {
         }
     }
 
-    @FXML //Done
+    @FXML
     public void handleQuit() {
         Platform.exit();
     }
 
-    @FXML //Delayed
+    @FXML
     public void handleCut() {
 
     }
 
-    @FXML //Delayed
+    @FXML
     public void handleCopy() {
 
     }
 
-    @FXML //Delayed
+    @FXML
     public void handlePaste() {
-        //Clipboard.getSystemClipboard().getString(); 
+        
     }
 
-    @FXML //Done
+    @FXML
     public void handleAbout() {
         Alert info = new Alert(Alert.AlertType.INFORMATION);
         info.initOwner(primaryStage);
