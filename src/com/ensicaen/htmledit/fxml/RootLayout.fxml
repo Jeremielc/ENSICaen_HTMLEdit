@@ -65,7 +65,7 @@
     <center>
         <AnchorPane prefHeight="51.0" prefWidth="877.0" BorderPane.alignment="CENTER">
             <children>
-                <TabPane layoutX="10.0" layoutY="10.0" prefHeight="403.0" prefWidth="877.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
+                <TabPane fx:id="tabPane" layoutX="10.0" layoutY="10.0" prefHeight="403.0" prefWidth="877.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
                     <tabs>
                         <Tab text="new_file.html">
                             <content>

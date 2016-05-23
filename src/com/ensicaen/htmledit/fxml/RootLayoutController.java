@@ -1,5 +1,6 @@
 package com.ensicaen.htmledit.fxml;
 
+import com.ensicaen.htmledit.main.MainApp;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -11,10 +12,13 @@ import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.text.Text;
 import javafx.scene.web.WebEngine;
@@ -34,6 +38,9 @@ public class RootLayoutController implements Initializable {
     private MenuItem cut, copy, paste;
     @FXML
     private MenuItem about;
+    
+    @FXML
+    private TabPane tabPane;
 
     @FXML
     private TextArea htmlEditor;
@@ -85,7 +92,14 @@ public class RootLayoutController implements Initializable {
 
     @FXML
     public void handleNewFile() {
-
+        handleCloseFile();
+        fileHasName = false;
+        fileIsSaved = false;
+        lastContent = "";
+        filename = "new_file.html";
+        tabPane.getTabs().get(0).setText(filename);
+        
+        tabPane.getTabs().add(new Tab("new_file.html"));
     }
 
     @FXML
@@ -115,6 +129,8 @@ public class RootLayoutController implements Initializable {
 
                 infos.setText("File loaded successfully.");
                 fileIsSaved = true;
+                filename = file.getName();
+                tabPane.getTabs().get(0).setText(filename);
             } catch (IOException ex) {
                 ex.printStackTrace(System.err);
                 infos.setText("Cannot load file.");
@@ -215,6 +231,8 @@ public class RootLayoutController implements Initializable {
 
             htmlEditor.clear();
             updateGui();
+            filename = "new_file.html";
+            tabPane.getTabs().get(0).setText(filename);
         } else {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.initOwner(primaryStage);
@@ -231,6 +249,8 @@ public class RootLayoutController implements Initializable {
 
             htmlEditor.clear();
             updateGui();
+            filename = "new_file.html";
+            tabPane.getTabs().get(0).setText(filename);
         }
     }
 
