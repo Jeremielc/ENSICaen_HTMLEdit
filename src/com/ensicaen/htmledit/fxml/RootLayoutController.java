@@ -1,6 +1,5 @@
 package com.ensicaen.htmledit.fxml;
 
-import com.ensicaen.htmledit.main.MainApp;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -12,7 +11,6 @@ import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -54,7 +52,7 @@ public class RootLayoutController implements Initializable {
 
     private Stage primaryStage;
     private boolean fileHasName = false, fileIsSaved = false;
-    private String lastContent;
+    private String lastContent, selectedString;
     private File workingDir = null;
     private String filename;
 
@@ -261,17 +259,27 @@ public class RootLayoutController implements Initializable {
 
     @FXML
     public void handleCut() {
-
+        selectedString = htmlEditor.getSelectedText();
+        String beforeSelectionStr = htmlEditor.getText().substring(0, htmlEditor.getSelection().getStart());
+        String afterSelectionStr = htmlEditor.getText().substring(beforeSelectionStr.length() + selectedString.length());
+        
+        htmlEditor.setText(beforeSelectionStr + afterSelectionStr);
+        updateGui();
     }
 
     @FXML
     public void handleCopy() {
-
+        selectedString = htmlEditor.getSelectedText();
     }
 
     @FXML
     public void handlePaste() {
+        String beforeSelectionStr = htmlEditor.getText().substring(0, htmlEditor.getCaretPosition());
+        String afterSelectionStr = htmlEditor.getText().substring(htmlEditor.getCaretPosition());
         
+        htmlEditor.setText(beforeSelectionStr + selectedString + afterSelectionStr);
+        updateGui();
+        selectedString = "";
     }
 
     @FXML
